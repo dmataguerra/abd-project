@@ -1,0 +1,29 @@
+\section {Modelos de seguridad en bases de datos}
+\subsection{Seguridad a nivel de usuarios y roles}
+\subsubsection*{Modelo de seguridad}
+\begin{itemize}
+    \item  Roles mínimos:
+     \begin{itemize}
+        \item  \texttt{rol_profesor}: puede consultar sus grupos y registrar asistencias.
+        \item  \texttt{rol_control_escolar}: puede consultar reportes globales, modificar estudiantes/grupos.
+        \item  \texttt{rol_consulta}: solo lectura de vistas de reporte.
+\end{itemize}
+\item  Usuarios de ejemplo:
+ \begin{itemize}
+    \item  \texttt{u_profesor_demo} (asignado a \texttt{rol_profesor}).
+    \item  \texttt{u_control_escolar_demo} (asignado a \texttt{rol_control_escolar}).
+\end{itemize}
+
+\item  Script \texttt{seguridad_asistencia.sql}
+\begin{itemize}
+    \item  CREATE ROLE / CREATE USER o CREATE ROLE ... LOGIN.
+    \item  GRANT y REVOKE a nivel base de datos, esquema, tablas y vistas. o Comentarios que expliquen qué puede y qué no puede hacer cada rol/usuario.
+\end{itemize}
+
+\end{itemize}
+\subsection{Backups y recuperación con cron}
+\begin{itemize}
+\item Script de respaldo lógico automático en bash \textbf{Referenciar a el script \texttt{backup_asistencia.sh}}
+\item Cronjob para ejecutar el respaldo diario \textbf{Referenciar a el script \texttt{cron_backup_asistencia.txt} e implementar screenshot de la pagina para hacer crons}
+\item Script para restaurar desde un backup \textbf{Referenciar a el script \texttt{restore_asistencia.sh}}
+\end{itemize}

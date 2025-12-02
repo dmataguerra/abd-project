@@ -1,0 +1,83 @@
+\section{Arquitectura del sistema gestor de base de datos}
+
+\subsection{Características del DBMS utilizado}
+\begin{itemize}
+    \item Versión de PostgreSQL utilizada: 16.10 (instalada sobre Ubuntu 24.04 dentro de un contenedor Docker).
+    \item Características relevantes del proyecto:
+    \begin{itemize}
+        \item Motor relacional con soporte transaccional completo (ACID).
+        \item Soporte de claves primarias, foráneas, restricciones y vistas, utilizado para el modelado de la base de datos de asistencia.
+        \item Soporte de funciones y procedimientos almacenados en SQL, aprovechados en el archivo \texttt{procedimientos\_asistencia.sql}.
+        \item Mecanismo de triggers, utilizado para automatizar lógica de negocio definida en \texttt{triggers\_asistencia.sql}.
+        \item Mecanismo de índices configurables, documentados en \texttt{indices\_asistencia.sql}, para optimizar consultas frecuentes.
+    \end{itemize}
+\end{itemize}
+\subsection{Características del DBMS utilizado}
+\begin{itemize}
+    \item Versión de PostgreSQL utilizada: 16.10, ejecutándose sobre Ubuntu 24.04 dentro de un contenedor Docker.
+    \item Se trata de un sistema gestor de bases de datos relacional, que permite trabajar con tablas relacionadas, vistas, índices y procedimientos almacenados.
+    \item En este proyecto se aprovechan estas características para modelar y gestionar la base de datos de asistencia (tablas, índices, procedimientos, triggers y vistas definidos en los scripts de la carpeta \texttt{db-arquitecture/}).
+\end{itemize}
+
+\subsection{Estructura de memoria y procesos de la instancia}
+\begin{itemize}
+    \item Explicación general de los procesos principales de PostgreSQL:
+    \begin{itemize}
+        \item Un proceso maestro \texttt{postgres} que coordina la instancia del servidor.
+        \item Procesos auxiliares como \textit{checkpointer}, \textit{writer}, \textit{wal writer} y \textit{autovacuum}, encargados de escritura en disco, manejo del WAL y mantenimiento automático de tablas.
+    \end{itemize}
+    \item Mención de los archivos/directorios importantes:
+    \begin{itemize}
+        \item Directorio de datos: \texttt{/var/lib/postgresql/16/main} dentro del contenedor (configuración por defecto del paquete de Ubuntu).
+        \item Archivo de configuración principal: \texttt{postgresql.conf}, donde se definen parámetros como puerto, memoria compartida, autovacuum, etc.
+        \item Archivo de control de accesos: \texttt{pg\_hba.conf}, donde se especifican los métodos de autenticación y orígenes permitidos.
+    \end{itemize}
+\end{itemize}
+\subsection{Estructura de memoria y procesos de la instancia}
+\begin{itemize}
+    \item PostgreSQL se ejecuta como un servicio dentro del contenedor y mantiene varios procesos en segundo plano que se encargan de atender conexiones y guardar la información en disco.
+    \item Los datos de la base se almacenan en un directorio interno de PostgreSQL (por defecto en \texttt{/var/lib/postgresql/16/main} dentro del contenedor).
+    \item La configuración principal del servidor se realiza a través de los archivos \texttt{postgresql.conf} y \texttt{pg\_hba.conf}, donde se ajustan parámetros como el puerto y las reglas de acceso.
+\end{itemize}
+
+\subsection{Instalación y configuración básica}
+\begin{itemize}
+    \item Resumen del entorno donde corre la BD:
+    \begin{itemize}
+        \item Sistema operativo base: Ubuntu 24.04 ejecutándose dentro de un contenedor Docker.
+        \item El contenedor se construye a partir del \texttt{Dockerfile} ubicado en \texttt{ubuntu-container/} y se orquesta mediante \texttt{docker-compose.yml}.
+        \item El servicio de PostgreSQL se instala mediante los paquetes \texttt{postgresql}, \texttt{postgresql-contrib} y \texttt{postgresql-client}.
+    \end{itemize}
+    \item Variables de ambiente relevantes:
+    \begin{itemize}
+        \item \texttt{DEBIAN\_FRONTEND=noninteractive} para evitar prompts interactivos durante la instalación.
+        \item \texttt{TZ=UTC} para configurar la zona horaria del sistema dentro del contenedor.
+    \end{itemize}
+    \item Configuraciones mínimas realizadas para que el sistema funcione:
+    \begin{itemize}
+        \item Se modifica la contraseña del usuario \texttt{postgres} mediante:
+        	exttt{ALTER USER postgres WITH PASSWORD 'postgres';}
+        \item El servicio PostgreSQL se expone en el puerto \texttt{5432} del contenedor y se mapea al puerto \texttt{5432} del host mediante Docker Compose.
+        \item El contenedor se mantiene en ejecución iniciando el servicio con \texttt{service postgresql start} y luego un comando de espera (\texttt{sleep infinity}) para permitir el acceso continuo durante las pruebas.
+    \end{itemize}
+\end{itemize}
+\subsection{Instalación y configuración básica}
+\begin{itemize}
+    \item La base de datos se ejecuta en un contenedor Docker basado en Ubuntu 24.04, definido en la carpeta \texttt{ubuntu-container/} mediante un \texttt{Dockerfile} y un archivo \texttt{docker-compose.yml}.
+    \item Durante la construcción de la imagen se instalan los paquetes de PostgreSQL y se configura la contraseña del usuario administrador \texttt{postgres} con el valor \texttt{postgres}.
+    \item El puerto \texttt{5432} del contenedor se publica en el mismo puerto del equipo host, lo que permite conectar desde herramientas externas usando la dirección \texttt{localhost:5432}.
+\end{itemize}
+
+\subsection{Clientes e IDEs de acceso}
+\begin{itemize}
+    \item Herramientas utilizadas:
+    \begin{itemize}
+        \item \texttt{psql}, el cliente de línea de comandos de PostgreSQL, instalado dentro del contenedor y utilizado para ejecutar los scripts SQL del proyecto (inicialización, índices, procedimientos, triggers, vistas, seguridad, etc.).
+        \item Opcionalmente, un IDE gráfico como \textit{pgAdmin} o \textit{DBeaver} desde el host, conectándose a \texttt{localhost:5432} con el usuario \texttt{postgres} y contraseña \texttt{postgres}.
+    \end{itemize}
+    \item Captura de pantalla de la conexión a la BD de asistencia:
+    \begin{itemize}
+        \item Imagen
+    \end{itemize}
+\end{itemize}
+

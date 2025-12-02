@@ -1,0 +1,53 @@
+\section {Diseñado de la base de datos}
+\subsection{Modelo Entidad-Relación}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/e-r.png}
+    \caption{Diagrama Entidad-Relación de la base de datos de asistencia}
+    \label{fig:diagrama-er-asistencia}
+\end{figure}
+\subsection{Modelo Físico de la base de datos}
+\subsubsection*{Explicación lógica de las tablas}
+\begin{itemize}
+    \item  \texttt{t_estudiantes}: almacena la información básica de los estudiantes, incluyendo su grupo asignado.
+    \item  \texttt{t_maestros}: almacena la información básica de los maestros.
+    \item  \texttt{t_materias}: contiene las materias disponibles en la institución.
+    \item  \texttt{t_grupos}: define los grupos o clases a los que pertenecen los estudiantes.
+    \item  \texttt{t_periodos}: registra los periodos académicos.
+    \item  \texttt{t_horario}: relaciona grupos, materias, maestros y periodos con horarios específicos.
+    \item  \texttt{cat_asistencias}: catálogo de tipos de asistencia (asistencia, retardo, falta, justificada, etc.).
+    \item  \texttt{t_asistencias}: registra las asistencias de los estudiantes por horario y fecha.
+\end{itemize}
+\subsubsection{init\_asistencia.sql}
+El script \texttt{init\_asistencia.sql} contiene las instrucciones SQL para crear las tablas mencionadas anteriormente, junto con sus claves primarias, foráneas y restricciones necesarias para mantener la integridad referencial. Además, incluye las relaciones entre las tablas que reflejan el modelo entidad-relación diseñado para la base de datos de asistencia. Y finalmente población de la bd con un mínimo de 
+\begin{itemize}
+    \item 10 estudiantes
+    \item 5 maestros
+    \item 5 materias
+    \item 3 grupos
+    \item 1 periodo
+    \item 1 semana de registros de asistencia
+\end{itemize}
+\subsection {Optimización de la base de datos}
+\subsubsection*{Definicion de indices}
+\begin{itemize}
+    \item  Índice para búsqueda rápida de asistencia por estudiante (ej. por matrícula).
+    \item  Índice para consultas por fecha.
+    \item  Índice para consultas por grupo y materia.
+\end{itemize}
+\subsubsection*{Mencion a script \texttt{indices_asistencia.sql}}
+
+\textbf{Explicacion de las decisiones tomadas en los indices :}
+\begin{itemize}
+    \item  ¿Por qué se eligió cada índice?
+    \item  ¿Qué tipo de consultas se benefician?
+    \item  Nota breve sobre el impacto de los índices e inserciones/actualizaciones.
+\end{itemize}
+
+\subsection{Estructuras avanzadas de la base de datos}
+\subsubsection*{Vistas}
+\subsubsection*{Procedimientos almacenados}
+\subsubsection*{Triggers}
+\subsubsection*{Índices}
+\textbf{Se hace referencia a el apartado de indices en la seccion de optimizacion}
+

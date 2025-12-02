@@ -1,0 +1,159 @@
+\documentclass[11pt,a4paper]{article}
+
+% --- PAQUETES ESENCIALES ---
+\usepackage[spanish,es-tabla]{babel} % Idioma español
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% --- TIPOGRAFÍA Y DISEÑO ---
+\usepackage{mathpazo}   % Fuente Palatino (Cuerpo)
+\usepackage[scaled]{helvet} % Fuente Helvetica (Sans)
+\usepackage{courier}    % Fuente Courier (Código)
+\usepackage{geometry}
+\usepackage{parskip}    % Espaciado entre párrafos
+\usepackage{microtype}  % Mejora la justificación
+\usepackage{booktabs}   % Para tablas profesionales
+
+% --- COLORES Y CAJAS ---
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tcolorbox} 
+
+% Definición de Colores
+\definecolor{corpBlue}{RGB}{0, 51, 102} 
+\definecolor{corpGray}{RGB}{100, 100, 100}
+\definecolor{codeBack}{RGB}{245, 245, 245}
+\definecolor{codeString}{RGB}{163, 21, 21}
+\definecolor{codeKey}{RGB}{0, 0, 255}
+
+% --- CONFIGURACIÓN DE PÁGINA ---
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+
+% --- ENCABEZADOS Y PIES ---
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headheight}{22pt} 
+
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{0.5pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{corpBlue}\leaders\hrule height \headrulewidth\hfill}}
+
+\lhead{\sffamily\small\color{corpGray}Documentación General}
+\rhead{\sffamily\small\color{corpBlue}\textbf{ABD Project}}
+\lfoot{\sffamily\footnotesize \today}
+\rfoot{\sffamily\footnotesize Página \thepage}
+
+% --- TÍTULOS DE SECCIÓN ---
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont\Large\sffamily\bfseries\color{corpBlue}}{\thesection}{1em}{}[{\titlerule[0.8pt]}]
+\titleformat{\subsection}{\normalfont\large\sffamily\bfseries\color{corpGray}}{\thesubsection}{1em}{}
+
+% --- CÓDIGO (LISTINGS) ---
+\usepackage{listings}
+\usepackage{caption}
+
+\lstset{
+	backgroundcolor=\color{codeBack},
+	basicstyle=\ttfamily\small,
+	breaklines=true,
+	keepspaces=true,
+	numbers=left,
+	numbersep=10pt,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{codeKey}\bfseries,
+	commentstyle=\color{gray}\itshape,
+	stringstyle=\color{codeString},
+	frame=l,
+	framesep=5pt,
+	framerule=2pt,
+	rulecolor=\color{corpBlue},
+	captionpos=b,
+	tabsize=4,
+	showstringspaces=false
+}
+
+\begin{document}
+	
+	% ==========================================
+	% 1. PORTADA
+	% ==========================================
+	\begin{titlepage}
+		\newgeometry{left=3cm, right=3cm, top=3cm, bottom=3cm}
+		\centering
+		
+		\vspace*{1cm}
+		\noindent\makebox[\linewidth]{\rule{\paperwidth}{2pt}} 
+		\vspace{0.5cm}
+		
+		{\scshape\LARGE\color{corpGray} UNIVERSIDAD AUTÓNOMA DE QUERÉTARO \par}
+		\vspace{1cm}
+		{\Huge\bfseries\sffamily\color{corpBlue} ABD Project (Sistema de Asistencia)\par}
+		\vspace{0.5cm}
+		{\Large\sffamily Administración de Bases de Datos \par}
+		
+		\vspace{0.5cm}
+		\noindent\makebox[\linewidth]{\rule{\paperwidth}{2pt}}
+		
+		\vspace{3cm}
+		
+		% --- INFORMACIÓN ---
+		\raggedright 
+		
+		\noindent
+		\begin{minipage}[t]{0.35\textwidth}
+			\textbf{\color{corpBlue}Nombre del proyecto:}
+		\end{minipage}%
+		\begin{minipage}[t]{0.65\textwidth}
+			ABD Project
+		\end{minipage}
+		\vspace{0.8cm}
+		
+		\noindent
+		\begin{minipage}[t]{0.35\textwidth}
+			\textbf{\color{corpBlue}Integrantes del equipo:}
+		\end{minipage}%
+		\begin{minipage}[t]{0.65\textwidth}
+			Mata Guerra David - 325797\\
+			(Agrega aquí a los demás integrantes)
+		\end{minipage}
+		\vspace{0.8cm}
+		
+		\noindent
+		\begin{minipage}[t]{0.35\textwidth}
+			\textbf{\color{corpBlue}Docente:}
+		\end{minipage}%
+		\begin{minipage}[t]{0.65\textwidth}
+			(Nombre del Docente)
+		\end{minipage}
+		\vspace{0.8cm}
+		
+		\noindent
+		\begin{minipage}[t]{0.35\textwidth}
+			\textbf{\color{corpBlue}Fecha de Entrega:}
+		\end{minipage}%
+		\begin{minipage}[t]{0.65\textwidth}
+			2 de diciembre del 2025
+		\end{minipage}
+		
+		\vfill
+		\centering
+		{\small Documentación General del Sistema de Asistencia.}
+		\vspace{1cm}
+		
+		\restoregeometry
+	\end{titlepage}
+
+    % ==========================================
+    % CONTENIDO
+    % ==========================================
+
+    \input{arquitectura-entorno-dbms.tex}
+
+    \input{diseno-base-de-datos.tex}
+
+    \input{modelos-seguridad.tex}
+
+    \input{conclusiones.tex}
+
+\end{document}
