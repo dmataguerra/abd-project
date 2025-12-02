@@ -1,0 +1,12 @@
+services:
+  ubuntu-lab:
+    build: .
+    container_name: abd-project
+    tty: true
+    stdin_open: true
+    environment:
+      - TZ=UTC
+    ports:
+      - "5432:5432" 
+    volumes:
+      - ./work:/work
