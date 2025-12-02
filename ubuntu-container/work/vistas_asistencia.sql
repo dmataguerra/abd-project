@@ -29,7 +29,6 @@ JOIN t_maestros ma ON ma.id_maestro = h.id_maestro
 JOIN t_periodos p ON p.id_periodo = h.id_periodo
 JOIN cat_asistencias ta ON ta.id_tipo_asistencia = a.id_tipo_asistencia;
 
--- Vista para obtener el resumen de asistencias por estudiante
 
 CREATE OR REPLACE VIEW vw_asistencia_maestro_grupo AS
 SELECT
@@ -56,7 +55,6 @@ JOIN t_asistencias a ON a.id_horario = h.id_horario
 JOIN t_estudiantes e ON e.id_estudiante = a.id_estudiante
 JOIN cat_asistencias ta ON ta.id_tipo_asistencia = a.id_tipo_asistencia;
 
--- Vista para obtener el resumen de asistencias por  grupo del maestro
 
 CREATE OR REPLACE VIEW vw_resumen_asistencia_grupo AS
 SELECT
@@ -75,7 +73,6 @@ JOIN t_grupos g ON g.id_grupo = h.id_grupo
 JOIN cat_asistencias ta ON ta.id_tipo_asistencia = a.id_tipo_asistencia
 GROUP BY g.id_grupo, g.nombre_grupo;
 
--- Vista para obtener el resumen de asistencias por grupo
 
 
 
@@ -94,4 +91,3 @@ GROUP BY e.id_estudiante, e.primer_nombre, e.apellido_paterno
 HAVING COUNT(*) > 0
 AND (SUM(CASE WHEN ta.nombre = 'FALTA' THEN 1 ELSE 0 END) * 100.0) / COUNT(*) > 30.0
 ORDER BY pct_faltas DESC;
--- Vista para identificar estudiantes en riesgo por inasistencias, se considera riesgo a partir de 30% de faltas.
