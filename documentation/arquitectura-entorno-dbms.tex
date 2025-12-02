@@ -56,7 +56,7 @@
     \item Configuraciones mínimas realizadas para que el sistema funcione:
     \begin{itemize}
         \item Se modifica la contraseña del usuario \texttt{postgres} mediante:
-        	exttt{ALTER USER postgres WITH PASSWORD 'postgres';}
+        	\texttt{ALTER USER postgres WITH PASSWORD 'postgres';}
         \item El servicio PostgreSQL se expone en el puerto \texttt{5432} del contenedor y se mapea al puerto \texttt{5432} del host mediante Docker Compose.
         \item El contenedor se mantiene en ejecución iniciando el servicio con \texttt{service postgresql start} y luego un comando de espera (\texttt{sleep infinity}) para permitir el acceso continuo durante las pruebas.
     \end{itemize}

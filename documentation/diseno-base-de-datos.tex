@@ -9,17 +9,17 @@
 \subsection{Modelo Físico de la base de datos}
 \subsubsection*{Explicación lógica de las tablas}
 \begin{itemize}
-    \item  \texttt{t_estudiantes}: almacena la información básica de los estudiantes, incluyendo su grupo asignado.
-    \item  \texttt{t_maestros}: almacena la información básica de los maestros.
-    \item  \texttt{t_materias}: contiene las materias disponibles en la institución.
-    \item  \texttt{t_grupos}: define los grupos o clases a los que pertenecen los estudiantes.
-    \item  \texttt{t_periodos}: registra los periodos académicos.
-    \item  \texttt{t_horario}: relaciona grupos, materias, maestros y periodos con horarios específicos.
-    \item  \texttt{cat_asistencias}: catálogo de tipos de asistencia (asistencia, retardo, falta, justificada, etc.).
-    \item  \texttt{t_asistencias}: registra las asistencias de los estudiantes por horario y fecha.
+    \item  t\_estudiantes: almacena la información básica de los estudiantes, incluyendo su grupo asignado.
+    \item  t\_maestros: almacena la información básica de los maestros.
+    \item  t\_materias: contiene las materias disponibles en la institución.
+    \item  t\_grupos: define los grupos o clases a los que pertenecen los estudiantes.
+    \item  t\_periodos: registra los periodos académicos.
+    \item  t\_horario: relaciona grupos, materias, maestros y periodos con horarios específicos.
+    \item  cat\_asistencias: catálogo de tipos de asistencia (asistencia, retardo, falta, justificada, etc.).
+    \item  t\_asistencias: registra las asistencias de los estudiantes por horario y fecha.
 \end{itemize}
 \subsubsection{init\_asistencia.sql}
-El script \texttt{init\_asistencia.sql} contiene las instrucciones SQL para crear las tablas mencionadas anteriormente, junto con sus claves primarias, foráneas y restricciones necesarias para mantener la integridad referencial. Además, incluye las relaciones entre las tablas que reflejan el modelo entidad-relación diseñado para la base de datos de asistencia. Y finalmente población de la bd con un mínimo de 
+El script init\_asistencia.sql contiene las instrucciones SQL para crear las tablas mencionadas anteriormente, junto con sus claves primarias, foráneas y restricciones necesarias para mantener la integridad referencial. Además, incluye las relaciones entre las tablas que reflejan el modelo entidad-relación diseñado para la base de datos de asistencia. Y finalmente población de la bd con un mínimo de 
 \begin{itemize}
     \item 10 estudiantes
     \item 5 maestros
@@ -28,20 +28,28 @@ El script \texttt{init\_asistencia.sql} contiene las instrucciones SQL para crea
     \item 1 periodo
     \item 1 semana de registros de asistencia
 \end{itemize}
+
+
 \subsection {Optimización de la base de datos}
 \subsubsection*{Definicion de indices}
 \begin{itemize}
-    \item  Índice para búsqueda rápida de asistencia por estudiante (ej. por matrícula).
-    \item  Índice para consultas por fecha.
-    \item  Índice para consultas por grupo y materia.
+    \item  Índice para búsqueda rápida de asistencia por estudiante (igualdad).
+    \\Se usa un índice \textbf{HASH} sobre t\_asistencias(id\_estudiante) para optimizar consultas de igualdad como: \texttt{SELECT * FROM t\_asistencias WHERE id\_estudiante = ?}. Los índices hash son ideales para lookups exactos.
+    \item  Índice para consultas por fecha (rangos temporales).
+    \\Se usa un índice \textbf{BRIN} sobre t\_asistencias(fecha) para acelerar rangos por día/semana/mes en tablas que crecen cronológicamente. BRIN es liviano y eficiente con datos correlacionados por bloque.
+    \item  Índice para consultas por grupo y materia (filtrado y joins vía horario).
+    \\Se usa un índice \textbf{BTREE compuesto} sobre t\_horarios(id\_grupo, id\_materia) para filtrar rápidamente combinaciones de grupo+materia y mejorar los joins posteriores con t\_asistencias por id\_horario.
 \end{itemize}
-\subsubsection*{Mencion a script \texttt{indices_asistencia.sql}}
-
-\textbf{Explicacion de las decisiones tomadas en los indices :}
+\subsubsection*{indices\_asistencia.sql}
+El script indices\_asistencia.sql contiene las instrucciones SQL para crear los índices definidos anteriormente en la base de datos de asistencia.
+	\textbf{Explicación de las decisiones tomadas en los índices:}
 \begin{itemize}
-    \item  ¿Por qué se eligió cada índice?
-    \item  ¿Qué tipo de consultas se benefician?
-    \item  Nota breve sobre el impacto de los índices e inserciones/actualizaciones.
+    \item  \textbf{¿Por qué se eligió cada índice?} \newline
+    HASH para igualdad en id\_estudiante; BRIN para rangos en fecha con crecimiento cronológico; BTREE compuesto para combinaciones frecuentes id\_grupo+id\_materia.
+    \item  \textbf{¿Qué tipo de consultas se benefician?} \newline
+    HASH: \texttt{WHERE id\_estudiante = ?}. BRIN: \texttt{WHERE fecha BETWEEN ? AND ?} o por día. BTREE compuesto: \texttt{WHERE id\_grupo = ? AND id\_materia = ?} y joins hacia t\_asistencias por id\_horario.
+    \item  \textbf{Impacto en inserciones/actualizaciones:} \newline
+    Los índices son primordiales en una buena base de datos, además el tipo de indice compuesto aunque no lo hayamos visto a profundidad en la clase, el maestro nos mencionó de su utilidad e importancia.
 \end{itemize}
 
 \subsection{Estructuras avanzadas de la base de datos}
