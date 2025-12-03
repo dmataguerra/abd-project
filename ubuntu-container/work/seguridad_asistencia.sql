@@ -19,18 +19,15 @@ GRANT SELECT ON vw_asistencia_estudiante_detalle,
              vw_estudiantes_riesgo_inasistencia TO rol_profesor;
 GRANT INSERT, UPDATE ON t_asistencias TO rol_profesor;
 
---'Lee vistas de reporte; puede registrar y actualizar asistencias. No puede modificar estudiantes/grupos ni tablas base distintas a t_asistencias.';
 
 GRANT SELECT ON ALL TABLES IN SCHEMA public TO rol_control_escolar;
 GRANT INSERT, UPDATE, DELETE ON t_estudiantes TO rol_control_escolar;
 GRANT INSERT, UPDATE, DELETE ON t_grupos TO rol_control_escolar;
 GRANT INSERT, UPDATE ON t_asistencias TO rol_control_escolar;
 
---'Consulta global y administra estudiantes/grupos; puede registrar/actualizar asistencias. No tiene permisos especiales fuera del esquema public.';
 
 GRANT SELECT ON vw_asistencia_estudiante_detalle,
              vw_asistencia_maestro_grupo,
              vw_resumen_asistencia_grupo,
              vw_estudiantes_riesgo_inasistencia TO rol_consulta;
 
---'Solo puede consultar vistas de reporte, sin permisos de modificación en ninguna tabla.';

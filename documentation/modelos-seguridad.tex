@@ -21,6 +21,34 @@
 \end{itemize}
 
 \end{itemize}
+\subsubsection*{Implementación y pruebas}
+Se implementaron los roles y usuarios mencionados en el script seguridad\_asistencia. Los roles definen permisos mínimos necesarios para cada tipo de usuario, siguiendo el principio de privilegios mínimos.
+\\
+\textbf{Pruebas de sanidad de cada usuario/rol:}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/control_user.png}
+    \caption{Pruebas de seguridad rol de control escolar}
+    \label{fig:pruebas-seguridad-roles}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/control-user-1.png}
+    \caption{Pruebas de seguridad rol de control escolar}
+    \label{fig:pruebas-seguridad-roles-2}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/profesor-user.png}
+    \caption{Pruebas de seguridad rol de profesor}
+    \label{fig:pruebas-seguridad-roles}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/profesor-user-1.png}
+    \caption{Pruebas de seguridad rol de profesor}
+    \label{fig:pruebas-seguridad-roles-2}
+\end{figure}
 \subsection{Backups y recuperación con cron}
 \begin{itemize}
 \item Script de respaldo lógico automático en bash \textbf{Referenciar a el script backup\_asistencia.sh}
