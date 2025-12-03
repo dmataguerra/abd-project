@@ -25,33 +25,52 @@
 Se implementaron los roles y usuarios mencionados en el script seguridad\_asistencia. Los roles definen permisos mínimos necesarios para cada tipo de usuario, siguiendo el principio de privilegios mínimos.
 \\
 \textbf{Pruebas de sanidad de cada usuario/rol:}
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{images/control_user.png}
     \caption{Pruebas de seguridad rol de control escolar}
     \label{fig:pruebas-seguridad-roles}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{images/control-user-1.png}
     \caption{Pruebas de seguridad rol de control escolar}
     \label{fig:pruebas-seguridad-roles-2}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{images/profesor-user.png}
     \caption{Pruebas de seguridad rol de profesor}
     \label{fig:pruebas-seguridad-roles}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{images/profesor-user-1.png}
     \caption{Pruebas de seguridad rol de profesor}
     \label{fig:pruebas-seguridad-roles-2}
 \end{figure}
+
+
+
+
 \subsection{Backups y recuperación con cron}
 \begin{itemize}
-\item Script de respaldo lógico automático en bash \textbf{Referenciar a el script backup\_asistencia.sh}
-\item Cronjob para ejecutar el respaldo diario \textbf{Referenciar a el script cron\_backup\_asistencia.txt e implementar screenshot de la pagina para hacer crons}
-\item Script para restaurar desde un backup \textbf{Referenciar a el script restore\_asistencia.sh}
+\item Script de respaldo lógico automático en bash: ver \texttt{ubuntu-container/work/backup\_asistencia.sh}. Utiliza \texttt{pg\_dump -F c}, nombra el archivo con fecha/hora (\texttt{asistencia\_db\_YYYYMMDD\_HHMM.backup}), guarda en \texttt{/var/backups/postgres} y elimina respaldos mayores a 7 días con \texttt{find ... -mtime +7 -delete}.
+\item Cronjob para ejecutar el respaldo diario: ver \texttt{ubuntu-container/work/cron\_asistencia.txt}. La línea de crontab programada es \texttt{45 19 * * * root /work/backup\_asistencia.sh} (diario a las 19:45).
 \end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/diagrama-backup.png}
+    \caption{Diagrama de flujo del proceso de respaldo automático}
+    \label{fig:cron-backup}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/diagrama-restiore.png}
+    \caption{Diagrama de flujo del proceso de restauración desde respaldo}
+    \label{fig:cron-backup}
+\end{figure}
+
+\pagebreak

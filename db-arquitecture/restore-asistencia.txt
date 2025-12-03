@@ -1,0 +1,11 @@
+# Crear BD de prueba
+
+sudo -u postgres createdb asistencias_restaurada
+
+# Restaurar backup (formato custom) en la BD de prueba
+
+sudo -u postgres pg_restore -d asistencias_restaurada -C /var/backups/postgres/asistencia_db_YYYYMMDD_HHMM.backup
+
+# Alternativa usando host TCP (Luego no me funciona si uso localhost normal)
+
+# pg_restore -h 127.0.0.1 -U postgres -d asistencias_restaurada -C /var/backups/postgres/asistencia_db_YYYYMMDD_HHMM.backup

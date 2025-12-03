@@ -1,6 +1,6 @@
 \section {Diseñado de la base de datos}
 \subsection{Modelo Entidad-Relación}
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{images/e-r.png}
     \caption{Diagrama Entidad-Relación de la base de datos de asistencia}
@@ -28,7 +28,12 @@ El script init\_asistencia.sql contiene las instrucciones SQL para crear las tab
     \item 1 periodo
     \item 1 semana de registros de asistencia
 \end{itemize}
-
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/poblar-db.png}
+    \caption{Tablas de la base de datos de asistencia}
+    \label{fig:tablas-asistencia}
+\end{figure}
 
 \subsection {Optimización de la base de datos}
 \subsubsection*{Definicion de indices}
@@ -42,6 +47,12 @@ El script init\_asistencia.sql contiene las instrucciones SQL para crear las tab
 \end{itemize}
 \subsubsection*{indices\_asistencia.sql}
 El script indices\_asistencia.sql contiene las instrucciones SQL para crear los índices definidos anteriormente en la base de datos de asistencia.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/create-index.png}
+    \caption{Creacion de indices}
+    \label{fig:indices-asistencia}
+\end{figure}
 	\textbf{Explicación de las decisiones tomadas en los índices:}
 \begin{itemize}
     \item  \textbf{¿Por qué se eligió cada índice?} \newline
@@ -55,17 +66,36 @@ El script indices\_asistencia.sql contiene las instrucciones SQL para crear los 
 \subsection{Estructuras avanzadas de la base de datos}
 \subsubsection*{Vistas}
 En el archivo vistas\_asistencia.sql se definen las siguientes vistas para facilitar consultas.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/vistas.png}
+    \caption{Creacion de vistas}
+    \label{fig:vistas-asistencia}
+\end{figure}
+
 \subsubsection*{Procedimientos almacenados}
 En el archivo procedimientos\_asistencia.sql se definen los  procedimientos almacenados para encapsular las reglas de negocio.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/procedure.png}
+    \caption{Creacion de procedimientos almacenados}
+    \label{fig:procedimientos-asistencia}
+\end{figure}
 \subsubsection*{Triggers}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/triggers.png}
+    \caption{Creacion de triggers}
+    \label{fig:triggers-asistencia}
+\end{figure}
 Se adjunta imagen de las respectivas tablas de logs.
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{images/log-1.png}
     \caption{Tabla de log para t\_maestros}
     \label{fig:t_maestros_log}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{images/log-2.png}
     \caption{Tabla de log para t\_asistencias}
